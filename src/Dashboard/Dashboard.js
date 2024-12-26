@@ -1,36 +1,55 @@
-import React from 'react';
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
+import ban1 from "../images/add.png";
+import ban2 from "../images/add-user.png";
 
 const Dashboard = () => {
-    return (
-      <div className="drawer lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
-          {/* Page content here */}
-          <label
-            htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
-          >
-            Open drawer
-          </label>
-        </div>
-        <div className="drawer-side">
-          <label
-            htmlFor="my-drawer-2"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-            {/* Sidebar content here */}
-            <li>
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
-          </ul>
-        </div>
+  return (
+    <div className="flex">
+      {/* Sidebar */}
+      <div className="w-1/6 p-4 min-h-screen">
+        <ul className="menu">
+          <li>
+            <Link
+              className="text-white text-base font-bold hover:text-slate-400"
+              to="/dashboard"
+            >
+              <span className="flex gap-4">
+                <img
+                  className="w-8 bg-white rounded-full p-1"
+                  src={ban1}
+                  alt=""
+                />
+                Dashboard
+              </span>
+            </Link>
+          </li>
+          <hr />
+          <li>
+            <Link
+              className="text-white mt-3 text-base font-bold hover:text-slate-400"
+              to="/dashboard/eventCreate"
+            >
+              <span className="flex gap-4">
+                <img
+                  className="w-8 bg-white rounded-full p-1"
+                  src={ban2}
+                  alt=""
+                />
+                Create Event
+              </span>
+            </Link>
+          </li>
+          <hr />
+        </ul>
       </div>
-    );
+
+      {/* Content */}
+      <div className="w-3/4 p-4">
+        <Outlet />
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;
