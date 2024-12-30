@@ -7,11 +7,11 @@ const Dashboard = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="w-1/6 p-4 min-h-screen">
+      <div className="w-1/6 p-4 bg-slate-100 min-h-screen">
         <ul className="menu">
           <li>
             <Link
-              className="text-white text-base font-bold hover:text-slate-400"
+              className="text-black text-base font-bold hover:text-slate-400"
               to="/dashboard"
             >
               <span className="flex gap-4">
@@ -27,7 +27,7 @@ const Dashboard = () => {
           <hr />
           <li>
             <Link
-              className="text-white mt-3 text-base font-bold hover:text-slate-400"
+              className="text-black mt-3 text-base font-bold hover:text-slate-400"
               to="/dashboard/eventCreate"
             >
               <span className="flex gap-4">
@@ -37,6 +37,22 @@ const Dashboard = () => {
                   alt=""
                 />
                 Create Event
+              </span>
+            </Link>
+          </li>
+          <hr />
+          <li>
+            <Link
+              className="text-black mt-3 text-base font-bold hover:text-slate-400"
+              to="/dashboard/eventList"
+            >
+              <span className="flex gap-4">
+                <img
+                  className="w-8 bg-white rounded-full p-1"
+                  src={ban2}
+                  alt=""
+                />
+                Event List
               </span>
             </Link>
           </li>
