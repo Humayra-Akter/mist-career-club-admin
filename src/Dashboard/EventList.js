@@ -6,6 +6,7 @@ const EventList = () => {
   const [events, setEvents] = useState([]);
   const [editEvent, setEditEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Fetch events from the backend
   const fetchEvents = async () => {
@@ -42,13 +43,24 @@ const EventList = () => {
   // Handle form submission for editing
   const handleEditSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData();
     formData.append("title", editEvent.title);
     formData.append("date", editEvent.date);
     formData.append("description", editEvent.description);
-    if (editEvent.images) {
-      for (let i = 0; i < editEvent.images.length; i++) {
-        formData.append("images", editEvent.images[i]);
+
+    // Add existing images
+    if (editEvent.existingImages) {
+      formData.append(
+        "existingImages",
+        JSON.stringify(editEvent.existingImages)
+      );
+    }
+
+    // Add new images
+    if (editEvent.newImages) {
+      for (let i = 0; i < editEvent.newImages.length; i++) {
+        formData.append("images", editEvent.newImages[i]);
       }
     }
 
@@ -63,7 +75,7 @@ const EventList = () => {
 
       if (response.ok) {
         toast.success("Event updated successfully.");
-        setEditEvent(null); // Close the modal
+        setEditEvent(null);
         setModalOpen(false);
         fetchEvents(); // Refresh the event list
       } else {
@@ -71,6 +83,8 @@ const EventList = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -82,7 +96,7 @@ const EventList = () => {
 
   // Handle image change for editing
   const handleImageChange = (e) => {
-    setEditEvent({ ...editEvent, images: e.target.files });
+    setEditEvent({ ...editEvent, newImages: Array.from(e.target.files) });
   };
 
   // Fetch events on component mount
@@ -96,43 +110,48 @@ const EventList = () => {
       <table className="table-auto w-full border">
         <thead>
           <tr>
-            <th className="border px-4 py-2">Title</th>
-            <th className="border px-4 py-2">Date</th>
-            <th className="border px-4 py-2">Description</th>
+            <th className="border px-4 w-40 py-2">Title</th>
+            <th className="border px-4 w-32 py-2">Date</th>
+            <th className="border px-4 w-48 py-2">Description</th>
             <th className="border px-4 py-2">Images</th>
-            <th className="border px-4 py-2">Actions</th>
+            <th className="border px-4 w-40 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {events.map((event) => (
-            <tr key={event._id}>
-              <td className="border px-4 py-2">{event.title}</td>
-              <td className="border px-4 py-2">{event.date}</td>
-              <td className="border px-4 py-2">{event.description}</td>
+          {events?.map((event) => (
+            <tr key={event?._id}>
+              <td className="border px-4 py-2">{event?.title}</td>
+              <td className="border px-4 py-2">{event?.date}</td>
+              <td className="border px-4 py-2">{event?.description}</td>
               <td className="border px-4 py-2">
-                {event.images &&
-                  event.images.map((url, index) => (
-                    <img
-                      key={index}
-                      src={url}
-                      alt={`Event ${index + 1}`}
-                      className="w-16 h-16 object-cover"
-                    />
-                  ))}
+                <div className="flex gap-2 flex-wrap">
+                  {event?.images &&
+                    event?.images.map((url, index) => (
+                      <img
+                        key={index}
+                        src={url}
+                        alt={`Event ${index + 1}`}
+                        className="w-16 h-16 object-cover"
+                      />
+                    ))}
+                </div>
               </td>
               <td className="border px-4 py-2">
                 <button
                   onClick={() => {
-                    setEditEvent(event);
+                    setEditEvent({
+                      ...event,
+                      existingImages: event.images || [],
+                    });
                     setModalOpen(true);
                   }}
-                  className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
+                  className="bg-yellow-700 text-white px-2 py-1 rounded mr-2"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(event._id)}
-                  className="bg-red-500 text-white px-2 py-1 rounded"
+                  className="bg-red-700 text-white px-2 py-1 rounded"
                 >
                   Delete
                 </button>
@@ -192,9 +211,12 @@ const EventList = () => {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              disabled={isSubmitting}
+              className={`${
+                isSubmitting ? "bg-gray-500" : "bg-blue-500"
+              } text-white px-4 py-2 rounded`}
             >
-              Save Changes
+              {isSubmitting ? "Saving..." : "Save Changes"}
             </button>
           </form>
         )}
