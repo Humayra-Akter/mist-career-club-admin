@@ -44,18 +44,14 @@ const EventList = () => {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     const formData = new FormData();
     formData.append("title", editEvent.title);
     formData.append("date", editEvent.date);
     formData.append("description", editEvent.description);
 
-    // Add existing images
-    if (editEvent.existingImages) {
-      formData.append(
-        "existingImages",
-        JSON.stringify(editEvent.existingImages)
-      );
-    }
+    // Include updated existing images
+    formData.append("existingImages", JSON.stringify(editEvent.existingImages));
 
     // Add new images
     if (editEvent.newImages) {
@@ -94,9 +90,28 @@ const EventList = () => {
     setEditEvent({ ...editEvent, [name]: value });
   };
 
-  // Handle image change for editing
+  // Handle new image addition
   const handleImageChange = (e) => {
-    setEditEvent({ ...editEvent, newImages: Array.from(e.target.files) });
+    setEditEvent({
+      ...editEvent,
+      newImages: [...(editEvent.newImages || []), ...e.target.files],
+    });
+  };
+
+  // Handle deletion of an existing image
+  const handleExistingImageDelete = (imageIndex) => {
+    const updatedImages = editEvent.existingImages.filter(
+      (_, index) => index !== imageIndex
+    );
+    setEditEvent({ ...editEvent, existingImages: updatedImages });
+  };
+
+  // Handle deletion of a newly added image
+  const handleNewImageDelete = (imageIndex) => {
+    const updatedImages = editEvent.newImages.filter(
+      (_, index) => index !== imageIndex
+    );
+    setEditEvent({ ...editEvent, newImages: updatedImages });
   };
 
   // Fetch events on component mount
@@ -201,12 +216,48 @@ const EventList = () => {
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Images</label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {editEvent.existingImages?.map((url, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={url}
+                      alt={`Existing Image ${index + 1}`}
+                      className="w-16 h-16 object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleExistingImageDelete(index)}
+                      className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2"
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {editEvent.newImages?.map((file, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`New Image ${index + 1}`}
+                      className="w-16 h-16 object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleNewImageDelete(index)}
+                      className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2"
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
               <input
                 type="file"
                 accept="image/*"
                 multiple
                 onChange={handleImageChange}
-                className="border bg-white w-full p-2"
+                className="border bg-white w-full p-2 mt-2"
               />
             </div>
             <button
