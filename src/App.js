@@ -8,6 +8,8 @@ import EventCreate from "./Dashboard/EventCreate";
 import EventList from "./Dashboard/EventList";
 import AddDirector from "./Dashboard/AddDirector";
 import DirectorList from "./Dashboard/DirectorList";
+import AddAssociative from "./Dashboard/AddAssociative";
+import AddExecutive from "./Dashboard/AddExecutive";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="eventCreate" element={<EventCreate />} />
           <Route path="eventList" element={<EventList />} />
           <Route path="addDirector" element={<AddDirector />} />
+          <Route path="addExecutive" element={<AddExecutive />} />
+          <Route path="addAssociative" element={<AddAssociative />} />
           <Route path="directorList" element={<DirectorList />} />
         </Route>
       </Routes>
