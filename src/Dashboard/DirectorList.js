@@ -49,6 +49,7 @@ const DirectorList = () => {
     const formData = new FormData();
     formData.append("name", editDirector.name);
     formData.append("department", editDirector.department);
+    formData.append("year", editDirector.year);
     formData.append("segment", editDirector.segment);
     formData.append("term", editDirector.term);
 
@@ -100,12 +101,13 @@ const DirectorList = () => {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Director List</h1>
+      <h1 className="text-3xl text-center mb-7 font-bold mt-4">Director List</h1>
       <table className="table-auto w-full border">
         <thead>
-          <tr>
+          <tr className="bg-primary">
             <th className="border px-4 py-2">Name</th>
             <th className="border px-4 py-2">Department</th>
+            <th className="border px-4 py-2">Year</th>
             <th className="border px-4 py-2">Segment</th>
             <th className="border px-4 py-2">Term</th>
             <th className="border px-4 py-2">Image</th>
@@ -115,8 +117,9 @@ const DirectorList = () => {
         <tbody>
           {directors.map((director) => (
             <tr key={director._id}>
-              <td className="border px-4 py-2">{director.name}</td>
+              <td className="border capitalize px-4 py-2">{director.name}</td>
               <td className="border px-4 py-2">{director.department}</td>
+              <td className="border px-4 py-2">{director.year}</td>
               <td className="border px-4 py-2">{director.segment}</td>
               <td className="border px-4 py-2">{director.term}</td>
               <td className="border px-4 py-2">
@@ -124,7 +127,7 @@ const DirectorList = () => {
                   <img
                     src={director.image}
                     alt="Director"
-                    className="w-16 h-16 object-cover"
+                    className="w-16 h-16 rounded-full object-cover"
                   />
                 )}
               </td>
@@ -195,6 +198,17 @@ const DirectorList = () => {
                 type="text"
                 name="term"
                 value={editDirector.term}
+                onChange={handleEditChange}
+                className="border bg-white w-full p-2 rounded"
+                required
+              />
+            </div>{" "}
+            <div>
+              <label className="block text-sm font-medium mb-1">Year</label>
+              <input
+                type="number"
+                name="year"
+                value={editDirector.year}
                 onChange={handleEditChange}
                 className="border bg-white w-full p-2 rounded"
                 required

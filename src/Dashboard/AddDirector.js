@@ -6,6 +6,7 @@ const AddDirector = () => {
     name: "",
     department: "",
     segment: "",
+    year: "",
     term: "",
     image: null,
   });
@@ -60,6 +61,7 @@ const AddDirector = () => {
     formPayload.append("name", formData.name);
     formPayload.append("department", formData.department);
     formPayload.append("segment", formData.segment);
+    formPayload.append("year", formData.year);
     formPayload.append("term", formData.term);
     formPayload.append("image", formData.image);
 
@@ -77,6 +79,7 @@ const AddDirector = () => {
           name: "",
           department: "",
           segment: "",
+          year: "",
           term: "",
           image: null,
         });
@@ -92,7 +95,7 @@ const AddDirector = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-8">
+    <div className="max-w-4xl bg-slate-100 mx-auto p-6  rounded-lg shadow-xl border mt-7">
       <h1 className="text-3xl font-bold text-center mb-6">Add Director</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -141,6 +144,17 @@ const AddDirector = () => {
               </option>
             ))}
           </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Year</label>
+          <input
+            type="number"
+            name="year"
+            value={formData.year}
+            onChange={handleChange}
+            className="border bg-white w-full p-2 rounded"
+            required
+          />
         </div>
 
         <div>

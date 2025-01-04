@@ -61,7 +61,7 @@ const EventCreate = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6  rounded-lg shadow-md">
+    <div className="max-w-4xl bg-slate-100 mx-auto p-6  rounded-lg shadow-xl border mt-10">
       <h1 className="text-3xl font-bold text-center mb-6">Create New Event</h1>
 
       {/* Event creation form */}

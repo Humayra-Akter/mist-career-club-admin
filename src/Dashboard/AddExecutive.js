@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const AddExecutive = () => {
   const [executives, setExecutives] = useState([
-    { segment: "", department: "", name: "", image: null },
+    { segment: "", year: "", department: "", name: "", image: null },
   ]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,7 +46,7 @@ const AddExecutive = () => {
   const addExecutive = () => {
     setExecutives([
       ...executives,
-      { segment: "", department: "", name: "", image: null },
+      { segment: "", year: "", department: "", name: "", image: null },
     ]);
   };
 
@@ -58,6 +58,7 @@ const AddExecutive = () => {
       for (const executive of executives) {
         const formPayload = new FormData();
         formPayload.append("segment", executive.segment);
+        formPayload.append("year", executive.year);
         formPayload.append("department", executive.department);
         formPayload.append("name", executive.name);
         formPayload.append("image", executive.image);
@@ -73,7 +74,9 @@ const AddExecutive = () => {
       }
 
       toast.success("Executives added successfully!");
-      setExecutives([{ segment: "", department: "", name: "", image: null }]);
+      setExecutives([
+        { segment: "", year: "", department: "", name: "", image: null },
+      ]);
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -82,11 +85,22 @@ const AddExecutive = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-8">
+    <div className="max-w-4xl bg-slate-100 mx-auto p-6  rounded-lg shadow-xl border mt-7">
       <h1 className="text-3xl font-bold text-center mb-6">Add Executive</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {executives.map((executive, index) => (
           <div key={index} className="space-y-4 border-b pb-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                type="text"
+                value={executive.name}
+                onChange={(e) => handleChange(index, "name", e.target.value)}
+                className="border bg-white w-full p-2 rounded"
+                required
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium mb-1">Segment</label>
               <select
@@ -124,13 +138,12 @@ const AddExecutive = () => {
                 ))}
               </select>
             </div>
-
             <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
+              <label className="block text-sm font-medium mb-1">Year</label>
               <input
-                type="text"
-                value={executive.name}
-                onChange={(e) => handleChange(index, "name", e.target.value)}
+                type="number"
+                value={executive.year}
+                onChange={(e) => handleChange(index, "year", e.target.value)}
                 className="border bg-white w-full p-2 rounded"
                 required
               />

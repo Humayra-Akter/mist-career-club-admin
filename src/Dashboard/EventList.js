@@ -121,10 +121,10 @@ const EventList = () => {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Event List</h1>
+      <h1 className="text-3xl text-center mb-7 font-bold mt-4">Event List</h1>
       <table className="table-auto w-full border">
         <thead>
-          <tr>
+          <tr className="bg-primary">
             <th className="border px-4 w-40 py-2">Title</th>
             <th className="border px-4 w-32 py-2">Date</th>
             <th className="border px-4 w-48 py-2">Description</th>

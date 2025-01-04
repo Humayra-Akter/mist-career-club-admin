@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const AddAssociative = () => {
   const [associatives, setAssociatives] = useState([
-    { segment: "", department: "", name: "", image: null },
+    { segment: "", year: "", department: "", name: "", image: null },
   ]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,7 +46,7 @@ const AddAssociative = () => {
   const addAssociative = () => {
     setAssociatives([
       ...associatives,
-      { segment: "", department: "", name: "", image: null },
+      { segment: "", year: "", department: "", name: "", image: null },
     ]);
   };
 
@@ -59,6 +59,7 @@ const AddAssociative = () => {
         const formPayload = new FormData();
         formPayload.append("segment", associative.segment);
         formPayload.append("department", associative.department);
+        formPayload.append("year", associative.year);
         formPayload.append("name", associative.name);
         formPayload.append("image", associative.image);
 
@@ -73,7 +74,9 @@ const AddAssociative = () => {
       }
 
       toast.success("Associative added successfully!");
-      setAssociatives([{ segment: "", department: "", name: "", image: null }]);
+      setAssociatives([
+        { segment: "", year: "", department: "", name: "", image: null },
+      ]);
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -82,11 +85,21 @@ const AddAssociative = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-8">
+    <div className="max-w-4xl bg-slate-100 mx-auto p-6  rounded-lg shadow-xl border mt-7">
       <h1 className="text-3xl font-bold text-center mb-6">Add Associative</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {associatives.map((associative, index) => (
           <div key={index} className="space-y-4 border-b pb-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                type="text"
+                value={associative.name}
+                onChange={(e) => handleChange(index, "name", e.target.value)}
+                className="border bg-white w-full p-2 rounded"
+                required
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium mb-1">Segment</label>
               <select
@@ -124,13 +137,12 @@ const AddAssociative = () => {
                 ))}
               </select>
             </div>
-
             <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
+              <label className="block text-sm font-medium mb-1">Year</label>
               <input
-                type="text"
-                value={associative.name}
-                onChange={(e) => handleChange(index, "name", e.target.value)}
+                type="number"
+                value={associative.year}
+                onChange={(e) => handleChange(index, "year", e.target.value)}
                 className="border bg-white w-full p-2 rounded"
                 required
               />
