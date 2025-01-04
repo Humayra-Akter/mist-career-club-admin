@@ -27,6 +27,8 @@ const AddDirector = () => {
   ];
 
   const segments = [
+    "President",
+    "General Secretary",
     "Event Management",
     "Communication",
     "Brand Promotion",
@@ -64,7 +66,7 @@ const AddDirector = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:5000/director-panel", {
+      const response = await fetch("http://localhost:5000/director", {
         method: "POST",
         body: formPayload,
       });
