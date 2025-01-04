@@ -6,6 +6,8 @@ import Welcome from "./Dashboard/Welcome";
 import Navbar from "./Dashboard/Navbar";
 import EventCreate from "./Dashboard/EventCreate";
 import EventList from "./Dashboard/EventList";
+import AddDirector from "./Dashboard/AddDirector";
+import DirectorList from "./Dashboard/DirectorList";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
 
           <Route path="eventCreate" element={<EventCreate />} />
           <Route path="eventList" element={<EventList />} />
+          <Route path="addDirector" element={<AddDirector />} />
+          <Route path="directorList" element={<DirectorList />} />
         </Route>
       </Routes>
       <ToastContainer />

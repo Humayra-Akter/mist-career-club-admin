@@ -57,6 +57,38 @@ const Dashboard = () => {
             </Link>
           </li>
           <hr />
+          <li>
+            <Link
+              className="text-black mt-3 text-base font-bold hover:text-slate-400"
+              to="/dashboard/addDirector"
+            >
+              <span className="flex gap-4">
+                <img
+                  className="w-8 bg-white rounded-full p-1"
+                  src={ban2}
+                  alt=""
+                />
+                Add Director
+              </span>
+            </Link>
+          </li>
+          <hr />
+          <li>
+            <Link
+              className="text-black mt-3 text-base font-bold hover:text-slate-400"
+              to="/dashboard/directorList"
+            >
+              <span className="flex gap-4">
+                <img
+                  className="w-8 bg-white rounded-full p-1"
+                  src={ban2}
+                  alt=""
+                />
+                Director List
+              </span>
+            </Link>
+          </li>
+          <hr />
         </ul>
       </div>
 
