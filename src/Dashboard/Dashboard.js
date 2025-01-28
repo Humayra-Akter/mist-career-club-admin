@@ -121,38 +121,6 @@ const Dashboard = () => {
             </Link>
           </li>
           <hr />
-          <li>
-            <Link
-              className="text-black mt-3 text-base font-bold hover:text-slate-400"
-              to="/dashboard/addAssociative"
-            >
-              <span className="flex gap-4">
-                <img
-                  className="w-8 bg-white rounded-full p-1"
-                  src={ban2}
-                  alt=""
-                />
-                Add Associative
-              </span>
-            </Link>
-          </li>
-          <hr />
-          <li>
-            <Link
-              className="text-black mt-3 text-base font-bold hover:text-slate-400"
-              to="/dashboard/associativeList"
-            >
-              <span className="flex gap-4">
-                <img
-                  className="w-8 bg-white rounded-full p-1"
-                  src={ban2}
-                  alt=""
-                />
-                Associative List
-              </span>
-            </Link>
-          </li>
-          <hr />
         </ul>
       </div>
 
