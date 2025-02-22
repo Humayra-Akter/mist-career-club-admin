@@ -129,11 +129,12 @@ import { toast } from "react-toastify";
 
 const EventCreate = () => {
   const [events, setEvents] = useState([]);
-  const [mainImage, setMainImage] = useState(null); // New main view image field
-  const [images, setImages] = useState([]); // Multiple images field
+  const [mainImage, setMainImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   // Fetch events from the backend
   const fetchEvents = async () => {
@@ -150,17 +151,18 @@ const EventCreate = () => {
   // Handle event creation
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("date", date);
     formData.append("description", description);
 
     if (mainImage) {
-      formData.append("mainImage", mainImage); // Append main image separately
+      formData.append("mainImage", mainImage);
     }
 
     for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]); // Append multiple images
+      formData.append("images", images[i]);
     }
 
     try {
@@ -183,6 +185,8 @@ const EventCreate = () => {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -258,11 +262,17 @@ const EventCreate = () => {
           ></textarea>
         </div>
 
+        {/* Submit Button with Loading Indicator */}
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all duration-200 flex items-center justify-center w-full"
+          disabled={loading}
         >
-          Create Event
+          {loading ? (
+            <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+          ) : (
+            "Create Event"
+          )}
         </button>
       </form>
     </div>

@@ -9,7 +9,7 @@ const Dashboard = () => {
   const location = useLocation();
 
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="flex min-h-screen bg-slate-50">
       {/* Sidebar */}
       <div
         className={`w-64 bg-white shadow-xl p-4 fixed h-full transition-transform ${
@@ -17,7 +17,6 @@ const Dashboard = () => {
         } md:translate-x-0`}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Admin Panel</h2>
           <button
             onClick={() => setIsOpen(false)}
             className="md:hidden p-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300 ease-in-out"
@@ -71,7 +70,7 @@ const Dashboard = () => {
       </div>
 
       {/* Content */}
-      <div className="md:ml-64 w-full p-6 pt-16">
+      <div className="md:ml-64 w-full p-6 pt-10">
         <Outlet />
       </div>
     </div>

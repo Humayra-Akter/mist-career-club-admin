@@ -51,7 +51,6 @@ const EventList = () => {
     formData.append("description", editEvent.description);
 
     // Include updated existing images
-    formData.append("existingMainImage", JSON.stringify(editEvent.existingImages));
     formData.append("existingImages", JSON.stringify(editEvent.existingImages));
 
     // Add new images
@@ -91,24 +90,13 @@ const EventList = () => {
     setEditEvent({ ...editEvent, [name]: value });
   };
 
-  const handleMainImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setEditEvent({
-        ...editEvent,
-        mainImage: e.target.files[0],
-      });
-    }
-  };
-
-
   // Handle new image addition
   const handleImageChange = (e) => {
     setEditEvent({
       ...editEvent,
       newImages: [...(editEvent.newImages || []), ...e.target.files],
     });
-  }; 
-  
+  };
 
   // Handle deletion of an existing image
   const handleExistingImageDelete = (imageIndex) => {
@@ -130,26 +118,35 @@ const EventList = () => {
   useEffect(() => {
     fetchEvents();
   }, []);
+
   return (
     <div>
       <h1 className="text-3xl text-center mb-7 font-bold">Event List</h1>
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
-        {events?.map((event) => (
-          <div
-            key={event?._id}
-            className="bg-white p-4 rounded-lg shadow-lg shadow-slate-200 border-2  flex items-center justify-center"
-          >
-            <div>
-              <h2 className="text-2xl capitalize text-center my-3 text-blue-800 font-bold">
-                {event?.title}
-              </h2>
-
-              <img
-                src={event?.mainImage}
-                alt="Main Event"
-                className="w-24 h-24 object-cover border-2 rounded-md mx-auto my-4"
-              />
-              <div>
+      <table className="table-auto w-full border">
+        <thead>
+          <tr className="bg-primary">
+            <th className="border px-4 w-40 py-2">Title</th>
+            <th className="border px-4 w-32 py-2">Date</th>
+            <th className="border px-4 w-48 py-2">Description</th>
+            <th className="border px-4 py-2">Main Image</th>
+            <th className="border px-4 py-2">Images</th>
+            <th className="border px-4 w-40 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {events?.map((event) => (
+            <tr key={event?._id}>
+              <td className="border px-4 py-2">{event?.title}</td>
+              <td className="border px-4 py-2">{event?.date}</td>
+              <td className="border px-4 py-2">{event?.description}</td>
+              <td className="border px-4 py-2">
+                <img
+                  src={event?.mainImage}
+                  alt="Main Event"
+                  className="w-16 h-16 object-cover"
+                />
+              </td>
+              <td className="border px-4 py-2">
                 <div className="flex gap-2 flex-wrap">
                   {event?.images &&
                     event?.images.map((url, index) => (
@@ -157,14 +154,12 @@ const EventList = () => {
                         key={index}
                         src={url}
                         alt={`Event ${index + 1}`}
-                        className="w-16 h-16 object-cover border-2 rounded-md"
+                        className="w-16 h-16 object-cover"
                       />
                     ))}
                 </div>
-              </div>
-              <p className="font-bold text-center my-3">{event?.date}</p>
-              <p className="text-justify">{event?.description}</p>
-              <div className="flex justify-center mt-4">
+              </td>
+              <td className="border px-4 py-2">
                 <button
                   onClick={() => {
                     setEditEvent({
@@ -183,38 +178,37 @@ const EventList = () => {
                 >
                   Delete
                 </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
       {/* Modal for Editing */}
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         {editEvent && (
           <form onSubmit={handleEditSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={editEvent.title}
-                  onChange={handleEditChange}
-                  className="border bg-white w-full p-2 rounded"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Date</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={editEvent.date}
-                  onChange={handleEditChange}
-                  className="border bg-white w-full p-2 rounded"
-                  required
-                />
-              </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Title</label>
+              <input
+                type="text"
+                name="title"
+                value={editEvent.title}
+                onChange={handleEditChange}
+                className="border bg-white w-full p-2 rounded"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={editEvent.date}
+                onChange={handleEditChange}
+                className="border bg-white w-full p-2 rounded"
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">
@@ -227,17 +221,6 @@ const EventList = () => {
                 className="border bg-white w-full p-2 rounded"
                 required
               ></textarea>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Main Image
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleMainImageChange}
-                className="border bg-white w-full p-2 mt-2"
-              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Images</label>
@@ -300,4 +283,5 @@ const EventList = () => {
     </div>
   );
 };
+
 export default EventList;
