@@ -40,6 +40,7 @@ const EventList = () => {
     }
   };
 
+
   // Handle form submission for editing
   const handleEditSubmit = async (e) => {
     e.preventDefault();
@@ -50,9 +51,18 @@ const EventList = () => {
     formData.append("date", editEvent.date);
     formData.append("description", editEvent.description);
 
+    // Check if a new main image is uploaded
+    if (editEvent.mainImage) {
+      formData.append("mainImage", editEvent.mainImage);
+    } else {
+      formData.append("existingMainImage", editEvent.existingMainImage);
+    }
+
     // Include updated existing images
-    formData.append("existingMainImage", JSON.stringify(editEvent.existingImages));
-    formData.append("existingImages", JSON.stringify(editEvent.existingImages));
+    formData.append(
+      "existingImages",
+      JSON.stringify(editEvent.existingImages || [])
+    );
 
     // Add new images
     if (editEvent.newImages) {
@@ -85,6 +95,7 @@ const EventList = () => {
     }
   };
 
+
   // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -95,11 +106,11 @@ const EventList = () => {
     if (e.target.files && e.target.files[0]) {
       setEditEvent({
         ...editEvent,
-        mainImage: e.target.files[0],
+        mainImage: e.target.files[0], // New main image
+        existingMainImage: null, // Remove old main image
       });
     }
   };
-
 
   // Handle new image addition
   const handleImageChange = (e) => {
@@ -107,8 +118,7 @@ const EventList = () => {
       ...editEvent,
       newImages: [...(editEvent.newImages || []), ...e.target.files],
     });
-  }; 
-  
+  };
 
   // Handle deletion of an existing image
   const handleExistingImageDelete = (imageIndex) => {
@@ -162,7 +172,7 @@ const EventList = () => {
                     ))}
                 </div>
               </div>
-              <p className="font-bold text-center my-3">{event?.date}</p>
+              <p className="font-bold text-lg my-3 text-center my-3">{event?.date}</p>
               <p className="text-justify">{event?.description}</p>
               <div className="flex justify-center mt-4">
                 <button
