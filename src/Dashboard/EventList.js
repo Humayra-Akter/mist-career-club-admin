@@ -40,7 +40,6 @@ const EventList = () => {
     }
   };
 
-
   // Handle form submission for editing
   const handleEditSubmit = async (e) => {
     e.preventDefault();
@@ -94,7 +93,6 @@ const EventList = () => {
       setIsSubmitting(false);
     }
   };
-
 
   // Handle input changes for editing
   const handleEditChange = (e) => {
@@ -172,7 +170,9 @@ const EventList = () => {
                     ))}
                 </div>
               </div>
-              <p className="font-bold text-lg my-3 text-center my-3">{event?.date}</p>
+              <p className="font-bold text-lg my-3 text-center my-3">
+                {event?.date}
+              </p>
               <p className="text-justify">{event?.description}</p>
               <div className="flex justify-center mt-4">
                 <button

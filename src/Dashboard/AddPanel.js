@@ -75,7 +75,6 @@ export default function AddPanel() {
     }
   };
 
-
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
   //   setIsSubmitted(true);

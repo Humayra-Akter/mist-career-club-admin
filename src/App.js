@@ -11,7 +11,7 @@ import PanelList from "./Dashboard/PanelList";
 
 function App() {
   return (
-    <div className="bg-white text-black">
+    <div>
       <Navbar />
       <Routes>
         <Route path="/" element={<Welcome />} />

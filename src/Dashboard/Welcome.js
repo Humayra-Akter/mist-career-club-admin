@@ -12,17 +12,16 @@ import {
 
 const Welcome = () => {
   return (
-    <div className="p-16 bg-white">
+    <div className="p-16">
       {/* Welcome Message */}
-      <h1 className="text-4xl text-center font-bold text-gray-800">
+      <h1 className="text-4xl text-center font-bold text-white">
         Welcome to Admin Panel
       </h1>
 
       <div className="flex items-center justify-center my-10">
-        <div className="p-3 bg-blue-500 text-white rounded-full">
+        <div className="p-3 bg-slate-800 text-white rounded-md border border-slate-500">
           <Link to="/dashboard">Go to Dashboard</Link>
         </div>
-       
       </div>
 
       {/* Dashboard Summary */}
@@ -33,7 +32,7 @@ const Welcome = () => {
           </div>
           <div>
             <h2 className="text-lg font-semibold">Total Events</h2>
-            <p className="text-gray-600">24 Active Events</p>
+            {/* <p className="text-gray-600">24 Active Events</p> */}
           </div>
         </div>
 
@@ -43,7 +42,7 @@ const Welcome = () => {
           </div>
           <div>
             <h2 className="text-lg font-semibold">Total Users</h2>
-            <p className="text-gray-600">150 Members</p>
+            {/* <p className="text-gray-600">150 Members</p> */}
           </div>
         </div>
 
@@ -53,13 +52,13 @@ const Welcome = () => {
           </div>
           <div>
             <h2 className="text-lg font-semibold">Pending Approvals</h2>
-            <p className="text-gray-600">3 New Requests</p>
+            {/* <p className="text-gray-600">3 New Requests</p> */}
           </div>
         </div>
       </div>
 
       {/* Recent Activities */}
-      <div className="mt-10 bg-white p-6 rounded-lg shadow-md">
+      {/* <div className="mt-10 bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold text-gray-800">Recent Activities</h2>
         <ul className="mt-4 space-y-3">
           <li className="p-3 bg-gray-100 rounded-md">
@@ -72,7 +71,7 @@ const Welcome = () => {
             ✅ 2 events were approved.
           </li>
         </ul>
-      </div>
+      </div> */}
 
       {/* Dynamic Page Content */}
       <div className="mt-6">

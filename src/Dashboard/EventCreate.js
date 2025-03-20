@@ -134,7 +134,7 @@ const EventCreate = () => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   // Fetch events from the backend
   const fetchEvents = async () => {

@@ -108,7 +108,7 @@ import {
   CalendarPlus,
   Users,
   PanelLeft,
-  ChevronRight,
+  ChevronLeft,
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -116,10 +116,10 @@ const Dashboard = () => {
   const location = useLocation();
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <div
-        className={`bg-white bg-fixed shadow-xl p-4 transition-transform duration-300 ease-in-out  max-h-full  ${
+        className={`bg-slate-800 bg-fixed text-white shadow-xl p-4 transition-transform duration-300 ease-in-out max-h-full  ${
           isOpen ? "w-64" : "w-16"
         } md:relative md:translate-x-0`}
       >
@@ -127,9 +127,9 @@ const Dashboard = () => {
           {/* Sidebar Toggle Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-all duration-300"
+            className="p-2 rounded-lg  text-white hover:bg-gray-700 transition-all duration-300"
           >
-            {isOpen ? <ChevronRight size={24} /> : <Menu size={24} />}
+            {isOpen ? <ChevronLeft size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
@@ -166,8 +166,8 @@ const Dashboard = () => {
               <Link
                 className={`flex items-center gap-4 p-3 rounded-lg font-medium transition-all duration-300 ${
                   location.pathname === item.path
-                    ? "bg-gray-300"
-                    : "text-gray-700 hover:bg-gray-200"
+                    ? "bg-gray-300 text-black"
+                    : "text-white hover:bg-gray-200 hover:text-black"
                 }`}
                 to={item.path}
               >
@@ -186,7 +186,7 @@ const Dashboard = () => {
       >
         {/* Show dashboard content only on /dashboard */}
         {location.pathname === "/dashboard" ? (
-          <div className="bg-white shadow-md rounded-lg p-6 text-center">
+          <div className="bg-white text-white shadow-md rounded-lg p-6 text-center">
             <h1 className="text-3xl font-bold text-gray-800">
               Welcome to the Admin Dashboard
             </h1>
