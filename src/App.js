@@ -6,24 +6,22 @@ import Welcome from "./Dashboard/Welcome";
 import Navbar from "./Dashboard/Navbar";
 import EventCreate from "./Dashboard/EventCreate";
 import EventList from "./Dashboard/EventList";
-import AddDirector from "./Dashboard/AddDirector";
-import DirectorList from "./Dashboard/DirectorList";
 import AddPanel from "./Dashboard/AddPanel";
+import PanelList from "./Dashboard/PanelList";
 
 function App() {
   return (
     <div className="bg-white text-black">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Welcome />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Welcome />} />
 
           <Route path="eventCreate" element={<EventCreate />} />
           <Route path="eventList" element={<EventList />} />
-          <Route path="addDirector" element={<AddPanel />} />
-          
-          <Route path="directorList" element={<DirectorList />} />
+          <Route path="addPanel" element={<AddPanel />} />
+          <Route path="panelList" element={<PanelList />} />
         </Route>
       </Routes>
       <ToastContainer />

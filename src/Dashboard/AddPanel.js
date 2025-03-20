@@ -31,10 +31,10 @@ export default function AddPanel() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [panel, setPanel] = useState(
     Array(8).fill({
+      term: "",
       name: "",
       department: "",
       segment: "",
-      year: "",
       image: null,
     })
   );
@@ -45,26 +45,81 @@ export default function AddPanel() {
     setPanel(updatedPanel);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitted(true);
+
+    const formData = new FormData();
+    formData.append("term", term);
+    formData.append("panel", JSON.stringify(panel)); // Convert panel array to JSON string
+
+    panel.forEach((member, index) => {
+      if (member.image) {
+        formData.append("images", member.image); // Append all images
+      }
+    });
+
+    try {
+      const response = await fetch("http://localhost:5000/panel", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log("Panel submitted successfully!");
+      } else {
+        console.error("Failed to submit panel.");
+      }
+    } catch (error) {
+      console.error("Error submitting panel:", error);
+    }
   };
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitted(true);
+
+  //   try {
+  //     for (const entry of panel) {
+  //       const formData = new FormData();
+  //       formData.append("name", entry.name);
+  //       formData.append("department", entry.department);
+  //       formData.append("segment", entry.segment);
+  //       formData.append("term", term);
+  //       formData.append("image", entry.image);
+
+  //       const response = await fetch("http://localhost:5000/panel", {
+  //         method: "POST",
+  //         body: formData,
+  //       });
+
+  //       if (!response.ok) {
+  //         console.error("Failed to submit panel entry:", entry);
+  //       }
+  //     }
+
+  //     console.log("Panel submitted successfully!");
+  //   } catch (error) {
+  //     console.error("Error submitting panel:", error);
+  //   }
+  // };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Panel Allotment Form</h2>
-      <label className="block mb-2 font-medium">Term:</label>
-      <select
-        className=" bg-white w-full p-2 border rounded-md"
-        value={term}
-        onChange={(e) => setTerm(e.target.value)}
-        disabled={isSubmitted}
-      >
-        <option value="Spring">Spring</option>
-        <option value="Fall">Fall</option>
-      </select>
 
       <form onSubmit={handleSubmit} className="mt-4">
+        <label className="block mb-2 font-medium">Term:</label>
+        <select
+          className=" bg-white w-full p-2 border rounded-md"
+          value={term}
+          onChange={(e) => setTerm(e.target.value)}
+          disabled={isSubmitted}
+        >
+          <option value="Spring">Spring</option>
+          <option value="Fall">Fall</option>
+        </select>
         {segments.map((segment, index) => (
           <div key={index} className="border p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">{segment}</h3>
@@ -74,6 +129,7 @@ export default function AddPanel() {
               className=" bg-white w-full p-2 border rounded-md mb-2"
               onChange={(e) => handleChange(index, "name", e.target.value)}
               disabled={isSubmitted}
+              // required
             />
             <select
               className=" bg-white w-full p-2 border rounded-md mb-2"
@@ -81,6 +137,7 @@ export default function AddPanel() {
                 handleChange(index, "department", e.target.value)
               }
               disabled={isSubmitted}
+              // required
             >
               <option value="">Select Department</option>
               {departments.map((dept, i) => (
@@ -90,17 +147,11 @@ export default function AddPanel() {
               ))}
             </select>
             <input
-              type="number"
-              placeholder="Year"
-              className=" bg-white w-full p-2 border rounded-md mb-2"
-              onChange={(e) => handleChange(index, "year", e.target.value)}
-              disabled={isSubmitted}
-            />
-            <input
               type="file"
               className=" bg-white w-full p-2 border rounded-md"
               onChange={(e) => handleChange(index, "image", e.target.files[0])}
               disabled={isSubmitted}
+              // required
             />
           </div>
         ))}
@@ -111,7 +162,8 @@ export default function AddPanel() {
           }`}
           disabled={isSubmitted}
         >
-          {isSubmitted ? "Panel Locked" : "Submit Panel"}
+          Submit Panel
+          {/* {isSubmitted ? "Panel Locked" : "Submit Panel"} */}
         </button>
       </form>
     </div>
