@@ -196,50 +196,59 @@ const EventCreate = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl bg-slate-100 mx-auto p-6 rounded-lg shadow-xl border mt-10">
-      <h1 className="text-3xl font-bold text-center mb-6">Create New Event</h1>
+    <div className="max-w-4xl bg-slate-800 mx-auto p-6 rounded-lg shadow-xl border mt-10">
+      <h1 className="text-3xl text-white font-bold text-center mb-6">
+        Create New Event
+      </h1>
 
       {/* Event creation form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Title</label>
+          <label className="block text-white text-sm font-medium mb-1">
+            Title
+          </label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border bg-white rounded w-full p-2"
+            className="border bg-slate-800 rounded w-full p-2"
             placeholder="Enter event title"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Date</label>
+          <label className="block text-white text-sm font-medium mb-1">
+            Date
+          </label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="border rounded bg-white w-full p-2"
+            className="border bg-slate-800 rounded w-full p-2"
             required
           />
         </div>
 
         {/* Main View Image Upload */}
         <div>
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-white text-sm font-medium mb-1">
             Main View Image
           </label>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setMainImage(e.target.files[0])}
-            className="border rounded bg-white w-full p-2"
+            className="border bg-slate-800 rounded w-full p-2"
           />
         </div>
 
         {/* Multiple Images Upload */}
         <div>
-          <label className="block text-sm font-medium mb-1">
+          <label
+            className="block text-sm text-white font-medium mb-1"
+            text-white
+          >
             Additional Images
           </label>
           <input
@@ -247,16 +256,18 @@ const EventCreate = () => {
             accept="image/*"
             multiple
             onChange={(e) => setImages(e.target.files)}
-            className="border rounded bg-white w-full p-2"
+            className="border bg-slate-800 rounded w-full p-2"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Description</label>
+          <label className="block text-sm text-white font-medium mb-1">
+            Description
+          </label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="border rounded bg-white w-full p-2"
+            className="border bg-slate-800 rounded w-full p-2"
             placeholder="Enter event description"
             required
           ></textarea>
@@ -265,7 +276,7 @@ const EventCreate = () => {
         {/* Submit Button with Loading Indicator */}
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all duration-200 flex items-center justify-center w-full"
+          className="bg-slate-500 border text-white px-4 py-2 rounded hover:bg-blue-800 transition-all duration-200 flex items-center justify-center w-1/3 mx-auto"
           disabled={loading}
         >
           {loading ? (

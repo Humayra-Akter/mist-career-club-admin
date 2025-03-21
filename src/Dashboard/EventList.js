@@ -140,15 +140,17 @@ const EventList = () => {
   }, []);
   return (
     <div>
-      <h1 className="text-3xl text-center mb-7 font-bold">Event List</h1>
+      <h1 className="text-3xl text-white text-center mt-7 mb-10 font-bold">
+        Event List
+      </h1>
       <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
         {events?.map((event) => (
           <div
             key={event?._id}
-            className="bg-white p-4 rounded-lg shadow-lg shadow-slate-200 border-2  flex items-center justify-center"
+            className="bg-slate-800 p-4 rounded-lg shadow-md shadow-slate-50 border flex items-center justify-center"
           >
             <div>
-              <h2 className="text-2xl capitalize text-center my-3 text-blue-800 font-bold">
+              <h2 className="text-2xl capitalize text-center my-3 text-white font-bold">
                 {event?.title}
               </h2>
 
@@ -204,53 +206,59 @@ const EventList = () => {
           <form onSubmit={handleEditSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Title</label>
+                <label className="block text-white text-sm font-medium mb-1">
+                  Title
+                </label>
                 <input
                   type="text"
                   name="title"
                   value={editEvent.title}
                   onChange={handleEditChange}
-                  className="border bg-white w-full p-2 rounded"
+                  className="border bg-slate-800 w-full p-2 rounded"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Date</label>
+                <label className="block text-white text-sm font-medium mb-1">
+                  Date
+                </label>
                 <input
                   type="date"
                   name="date"
                   value={editEvent.date}
                   onChange={handleEditChange}
-                  className="border bg-white w-full p-2 rounded"
+                  className="border bg-slate-800 w-full p-2 rounded"
                   required
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-white text-sm font-medium mb-1">
                 Description
               </label>
               <textarea
                 name="description"
                 value={editEvent.description}
                 onChange={handleEditChange}
-                className="border bg-white w-full p-2 rounded"
+                className="border bg-slate-800 w-full p-2 rounded"
                 required
               ></textarea>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm text-white font-medium mb-1">
                 Main Image
               </label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleMainImageChange}
-                className="border bg-white w-full p-2 mt-2"
+                className="border bg-slate-800 w-full p-2 mt-2"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Images</label>
+              <label className="block text-white text-sm font-medium mb-1">
+                Images
+              </label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {editEvent.existingImages?.map((url, index) => (
                   <div key={index} className="relative">
@@ -269,7 +277,7 @@ const EventList = () => {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex text-white flex-wrap gap-2">
                 {editEvent.newImages?.map((file, index) => (
                   <div key={index} className="relative">
                     <img
@@ -292,7 +300,7 @@ const EventList = () => {
                 accept="image/*"
                 multiple
                 onChange={handleImageChange}
-                className="border bg-white w-full p-2 mt-2"
+                className="border w-full p-2 mt-2"
               />
             </div>
             <button

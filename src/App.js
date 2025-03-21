@@ -8,6 +8,8 @@ import EventCreate from "./Dashboard/EventCreate";
 import EventList from "./Dashboard/EventList";
 import AddPanel from "./Dashboard/AddPanel";
 import PanelList from "./Dashboard/PanelList";
+import AddPartner from "./Dashboard/AddPartner";
+import Partners from "./Dashboard/Partners";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="eventList" element={<EventList />} />
           <Route path="addPanel" element={<AddPanel />} />
           <Route path="panelList" element={<PanelList />} />
+          <Route path="addPartner" element={<AddPartner />} />
+          <Route path="partners" element={<Partners />} />
         </Route>
       </Routes>
       <ToastContainer />
