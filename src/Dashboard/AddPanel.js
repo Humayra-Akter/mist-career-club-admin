@@ -184,7 +184,7 @@ const segments = [
 
 export default function AddPanel() {
   const [term, setTerm] = useState("Spring");
-  const [year, setYear] = useState(""); // added year state
+  const [year, setYear] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [panel, setPanel] = useState(
@@ -225,6 +225,7 @@ export default function AddPanel() {
     try {
       const response = await fetch("http://localhost:5000/panel", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: formData,
       });
 

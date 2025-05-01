@@ -12,18 +12,36 @@ const PanelModal = ({ member, closeModal }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    // Save logic here, API call can be done here
-    console.log("Updated data:", formData);
-    closeModal();
+  const handleSave = async () => {
+    const data = new FormData();
+    data.append("name", formData.name);
+    data.append("department", formData.department);
+    data.append("segment", formData.segment);
+    if (formData.image instanceof File) {
+      data.append("image", formData.image);
+    }
+
+    const response = await fetch(`http://localhost:5000/panel/${member._id}`, {
+      method: "PUT",
+      body: data,
+    });
+
+    if (response.ok) {
+      console.log("Panel member updated");
+      closeModal();
+    } else {
+      console.error("Update failed");
+    }
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-xl p-6 w-96 space-y-4 relative">
-        <h2 className="text-xl font-bold mb-4 text-center">Edit Member</h2>
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center">
+      <div className="bg-slate-900 border rounded-xl p-6 w-1/3 space-y-4 relative">
+        <h2 className="text-xl font-bold mb-4 text-white text-center">
+          Edit Member
+        </h2>
 
-        <label className="block text-sm font-medium text-gray-700">Name</label>
+        <label className="block text-sm font-medium text-white">Name</label>
         <input
           type="text"
           name="name"
@@ -32,7 +50,9 @@ const PanelModal = ({ member, closeModal }) => {
           className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <label className="block text-sm font-medium text-gray-700">Department</label>
+        <label className="block text-sm font-medium text-white">
+          Department
+        </label>
         <input
           type="text"
           name="department"
@@ -41,7 +61,7 @@ const PanelModal = ({ member, closeModal }) => {
           className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <label className="block text-sm font-medium text-gray-700">Segment</label>
+        <label className="block text-sm font-medium text-white">Segment</label>
         <input
           type="text"
           name="segment"
@@ -50,13 +70,15 @@ const PanelModal = ({ member, closeModal }) => {
           className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <label className="block text-sm font-medium text-gray-700">Image URL</label>
+        <label className="block text-sm font-medium text-white">Image</label>
         <input
-          type="text"
+          type="file"
           name="image"
-          value={formData.image}
-          onChange={handleChange}
+          accept="image/*"
           className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) =>
+            setFormData({ ...formData, image: e.target.files[0] })
+          }
         />
 
         <div className="flex justify-end space-x-2 mt-4">
