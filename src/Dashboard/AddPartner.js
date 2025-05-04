@@ -35,57 +35,47 @@ export default function AddPartner() {
   };
 
   return (
-    <div className="p-6 space-y-10">
-      <div className="max-w-3xl text-white mx-auto p-6 shadow-md rounded-lg overflow-hidden border">
-        <div className="bg-gradient-to-r from-slate-800 to-blue-800 p-6">
-          <h2 className="text-3xl text-center font-bold text-white">
-            Add Partner
-          </h2>
-        </div>
-        <form onSubmit={handleSubmit} className="mt-4">
-          <label className="block mb-2 font-medium">
-            Partner Company Name:
-          </label>
-          <input
-            type="text"
-            placeholder="Name"
-            className="w-full p-2 border rounded-md mb-6"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+    <div className="max-w-4xl bg-slate-800 mx-auto p-6 rounded-lg shadow-xl border mt-10">
+      <h1 className="text-3xl text-white font-bold text-center mb-6">
+        Create New Event
+      </h1>
+      <form onSubmit={handleSubmit} className="mt-4">
+        <label className="block mb-2 font-medium">Partner Company Name:</label>
+        <input
+          type="text"
+          placeholder="Name"
+          className="w-full p-2 border rounded-md mb-6"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-          <label className="block text-sm font-medium mb-1">
-            Partner logo:
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            className="border bg-white w-full p-2 mb-6"
-            onChange={(e) => setImage(e.target.files[0])}
-            required
-          />
+        <label className="block text-sm font-medium mb-1">Partner logo:</label>
+        <input
+          type="file"
+          accept="image/*"
+          className="border bg-white w-full p-2 mb-6"
+          onChange={(e) => setImage(e.target.files[0])}
+          required
+        />
 
-          <label className="block mb-2 font-medium">
-            Details:
-          </label>
-          <input
-            type="text"
-            placeholder="Details"
-            className="w-full p-2 border rounded-md mb-6"
-            value={details}
-            onChange={(e) => setDetails(e.target.value)}
-            required
-          />
+        <label className="block mb-2 font-medium">Details:</label>
+        <input
+          type="text"
+          placeholder="Details"
+          className="w-full p-2 border rounded-md mb-6"
+          value={details}
+          onChange={(e) => setDetails(e.target.value)}
+          required
+        />
 
-          <button
-            type="submit"
-            className="border text-white px-4 py-2 rounded hover:bg-blue-800 transition-all duration-200 flex items-center justify-center w-1/3 mx-auto"
-          >
-            Submit Partner
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          className="border text-white px-4 py-2 rounded hover:bg-blue-800 transition-all duration-200 flex items-center justify-center w-1/3 mx-auto"
+        >
+          Submit Partner
+        </button>
+      </form>
     </div>
   );
 }

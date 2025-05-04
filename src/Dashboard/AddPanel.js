@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 const departments = [
@@ -86,7 +85,7 @@ export default function AddPanel() {
   };
 
   return (
-    <div className="max-w-4xl text-white mx-auto p-6 shadow-md rounded-lg">
+    <div className="max-w-4xl bg-slate-800 mx-auto p-6 rounded-lg shadow-xl border mt-10">
       <h1 className="text-3xl text-white font-bold text-center mb-6">
         Panel Allotment Form
       </h1>
