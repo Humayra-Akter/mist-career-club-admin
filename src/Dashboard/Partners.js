@@ -153,7 +153,7 @@ const Partners = () => {
                 <img
                   src={partner?.image}
                   alt="Partner Logo"
-                  className="w-24 h-24 object-cover border-2 rounded-md mx-auto my-4"
+                  className="object-cover border-2 rounded-md mx-auto my-4"
                 />
 
                 <p className="font-bold text-lg my-3 text-center text-white">
